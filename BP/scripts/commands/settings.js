@@ -1,19 +1,22 @@
-import { sendMessage, graveSave } from '../functions/function';
-import { option } from './registry';
+import { sendMessage } from '../function/sendMessage';
+import { world, system } from '@minecraft/server';
 
-export function settings(senders, rule, boolean) {
+export function settings(senders) {
 
-    const sender = senders.sourceEntity
+    system.run(() => {
 
-    if (sender.typeId === 'minecraft:player') {
+        const sender = senders.sourceEntity
 
-        if (option.includes(rule)) {
+        if (sender.typeId === 'minecraft:player') {
 
-            sendMessage('commands.gamerule.success', { withs: [rule, boolean], name: sender.name });
-            graveSave().settings[rule] = boolean
-        } else {
+            const packSettings = Object.entries(world.getPackSettings())
+            const settings = packSettings.filter(([rule]) => rule.startsWith('grave:'))
 
-            sendMessage('grave.settings.gamerule.unSuccess', { withs: [rule], name: sender.name });
+            sendMessage(`grave.settings.line1`, { name: sender.name })
+            settings.forEach(([rule, setting]) => sendMessage(`grave.settings.${rule}`, { withs: [setting], name: sender.name }))
+            sendMessage(`grave.settings.line2`, { name: sender.name })
+
+            sender.playSound('random.pop');
         }
-    }
+    })
 }

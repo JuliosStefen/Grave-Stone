@@ -2,20 +2,39 @@ item.grave:map=Grave Stone Map
 entity.grave:grave_stone.name=Grave Stone
 
 ## commands/registry
-grave.command.settings.description=Einstellungen für das Verhalten von Grabsteinen
+grave.command.settings.description=Show grave settings
 ## commands/registry
 
 ## commands/settings
-grave.settings.gamerule.unSuccess=§cGame rule: %s does not exist
+grave.settings.line1=§6========== Grave settings ==========\n§r
+grave.settings.grave:lostLevels=§eXP loot:§a %s%
+grave.settings.grave:lostItems=§eItem loot:§a %s%
+grave.settings.grave:ignoreOPplayers=§eIgnore players with OP:§a %s
+grave.settings.grave:privateGraves=§ePrivate graves:§a %s
+grave.settings.grave:removeEmptyGraves=§eRemove empty graves:§a %s
+grave.settings.grave:allowTeleporting=§eAllow teleporting:§a %s
+grave.settings.grave:chatFeedback=§eChat feedback:§a %s
+grave.settings.line2=§6\n==================================
 ## commands/settings
 
 ## events/hitInteract/hitInteract
 grave.info.quickloot=Crouch for quick looting
+grave.hitInteract.cantOpen=§cYou cannot open the graves of other players
 ## events/hitInteract/hitInteract
+
+## events/hitInteract/openGrave
+grave.openGrave.amount=§a+ %sx 
+grave.openGrave.amountXP=§l§a+ %sx §6experience
+## events/hitInteract/openGrave
 
 ## events/itemUse/itemUse
 grave.itemUse.graveLocation=\n§r§3Dimension: §6%s\n§cX: %s, Y: %s, Z: %s
 ## events/itemUse/itemUse
+
+## events/playerSpawn
+grave.playerSpawn.amount=§c- %sx 
+grave.playerSpawn.amountXP=§l§c- %sx §6experience
+## events/playerSpawn
 
 ## events/itemUse/teleport
 grave.teleport.startTeleport=§6Teleportation starting, do not move

@@ -2,7 +2,7 @@ import { world, system } from '@minecraft/server';
 
 export function sendMessage(translate, { withs = [], name } = {}) {
 
-    system.run(() => {
+    system.run(() => { 
 
         let withss = []
 
@@ -16,10 +16,8 @@ export function sendMessage(translate, { withs = [], name } = {}) {
 
         } else {
 
-            for (const player of world.getPlayers().filter((p) => p.name === name)) {
-
-                player.sendMessage(message);
-            }
+            const player = world.getPlayers().find((p) => p.name === name)
+            if (player) player.sendMessage(message);
         }
     })
-}
+} 

@@ -1,4 +1,4 @@
-import { sendMessage } from '../functions/function';
+import { sendMessage } from '../function/sendMessage';
 import { world } from '@minecraft/server';
 
 world.beforeEvents.playerInteractWithBlock.subscribe((event) => {

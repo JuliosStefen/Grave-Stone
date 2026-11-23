@@ -7,7 +7,18 @@ world.afterEvents.entityHitEntity.subscribe(({ damagingEntity, hitEntity }) => {
 
         const display = damagingEntity.onScreenDisplay;
 
-        if (!damagingEntity.isSneaking) display.setActionBar({ translate: 'grave.info.quickloot' });
+        if (world.getPackSettings()['grave:privateGraves'] && damagingEntity.name !== hitEntity.getDynamicProperty('name')) {
+
+            if (world.getPackSettings()['grave:ignoreOPplayers'] && damagingEntity.playerPermissionLevel >= 2) { }
+
+            else {
+
+                display.setActionBar({ translate: 'grave.hitInteract.cantOpen' })
+                return;
+            }
+        }
+
+        if (!damagingEntity.isSneaking) display.setActionBar({ translate: 'grave.hitInteract.quickloot' });
 
         if (damagingEntity.isSneaking) {
 
@@ -18,10 +29,19 @@ world.afterEvents.entityHitEntity.subscribe(({ damagingEntity, hitEntity }) => {
 
 world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
 
-    const player = event.player;
-    const target = event.target;
+    const { player, target } = event
+    const display = player.onScreenDisplay;
 
     if (target.typeId === 'grave:grave_stone' && player.typeId === 'minecraft:player') {
+
+        if (world.getPackSettings()['grave:ignoreOPplayers'] && player.playerPermissionLevel >= 2) { }
+
+        else {
+
+            system.run(() => display.setActionBar({ translate: 'grave.hitInteract.cantOpen' }))
+            event.cancel = true;
+            return;
+        }
 
         if (player.isSneaking) {
 

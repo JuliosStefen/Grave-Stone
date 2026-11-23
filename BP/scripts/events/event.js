@@ -2,5 +2,8 @@ import './hitInteract/hitInteract';
 import './entityHurt/entityHurt';
 import '../commands/registry';
 import './itemUse/itemUse';
+import './containerClosed';
 import './interactBlock';
 import './playerSpawn';
+import './entitySpawn';
+import './itemChange';

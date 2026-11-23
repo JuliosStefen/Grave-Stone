@@ -1,30 +1,26 @@
-import { sendMessage, graveSave } from '../../functions/function';
-import { world, system } from '@minecraft/server';
 import { teleportPlayer, teleports } from './teleport';
+import { world, system } from '@minecraft/server';
+import { sendMessage } from '../../function/sendMessage';
 
-world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => system.run(() => {
 
-    system.run(() => {
+    if (source.typeId === 'minecraft:player' && itemStack.typeId === 'grave:map') {
 
-        if (source.typeId === 'minecraft:player' && itemStack.typeId === 'grave:map') {
+        const mapSave = JSON.parse(itemStack?.getDynamicProperty('mapSave') ?? '{}');
 
-            const rules = graveSave().settings
-            const mapSave = JSON.parse(itemStack?.getDynamicProperty('mapSave') ?? '{}');
+        if (mapSave?.location && mapSave?.dimension) {
 
-            if (mapSave?.location && mapSave?.dimension) {
+            if (world.getPackSettings()['grave:allowTeleporting']) {
 
-                if (rules?.allowTeleporting) {
+                if (!teleports[source.name]) teleportPlayer(source);
 
-                    if (!teleports[source.name]) teleportPlayer(source);
+            } else {
 
-                } else {
+                const { x, y, z } = mapSave.location
+                const dimension = mapSave.dimension.replace('minecraft:', '');
 
-                    const { x, y, z } = mapSave.location
-                    const dimension = mapSave.dimension.replace('minecraft:', '');
-
-                    sendMessage('grave.itemUse.graveLocation', { withs: [dimension, x, y, z], name: source.name })
-                }
+                sendMessage('grave.itemUse.graveLocation', { withs: [dimension, x, y, z], name: source.name })
             }
         }
-    })
-})
+    }
+}))

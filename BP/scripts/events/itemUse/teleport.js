@@ -1,4 +1,4 @@
-import { sendMessage } from '../../functions/function';
+import { sendMessage } from '../../function/sendMessage';
 import { world, system } from '@minecraft/server';
 
 export let teleports = {}

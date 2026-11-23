@@ -1,54 +1,96 @@
 {
-	"format_version": 2,
+	"format_version": 3,
 	"header": {
 		"name": "Grave Stone",
 		"description": "After a death, a grave spawns containing all the deceased's items",
-		"min_engine_version": [
-			1,
-			21,
-			120
-		],
+		"min_engine_version": "1.21.60",
 		"uuid": "17282b6c-9654-4c73-8c76-96b904859d53",
-		"version": [
-			1,
-			1,
-			0
-		]
+		"version": "1.2.0"
 	},
 	"modules": [
 		{
 			"type": "data",
 			"uuid": "3e5b39ad-56c0-4a06-9898-0ec67cfb7678",
-			"version": [
-				1,
-				1,
-				0
-			]
+			"version": "1.2.0"
 		},
 		{
 			"type": "script",
 			"language": "javascript",
 			"uuid": "f8ce95cc-cf72-4639-8441-d4f6e8590ba5",
 			"entry": "scripts/events/event.js",
-			"version": [
-				1,
-				1,
-				0
-			]
+			"version": "1.2.0"
 		}
 	],
 	"dependencies": [
 		{
 			"uuid": "9e42b519-3e2f-4752-8178-6c76296d88d3",
-			"version": [
-				1,
-				1,
-				0
-			]
+			"version": "1.2.0"
 		},
 		{
 			"module_name": "@minecraft/server",
-			"version": "2.8.0"
+			"version": "2.11.0"
+		}
+	],
+	"settings": [
+		{
+			"type": "label",
+			"text": "Discord: §bhttps://discord.gg/vSf4WSQRfm§r\n\nThis addon was created by §6JuliosStefen.§r If you have any questions or encounter any issues, please feel free to reach out on our §6Discord"
+		},
+		{
+			"type": "label",
+			"text": "§l§aToggles"
+		},
+		{
+			"type": "toggle",
+			"text": "§6Allow teleporting: §rsetting for whether one can teleport by interacting with the grave card",
+			"name": "grave:allowTeleporting",
+			"default": false
+		},
+		{
+			"type": "toggle",
+			"text": "§6Remove empty graves: §rautomatically removes graves when they are empty",
+			"name": "grave:removeEmptyGraves",
+			"default": true
+		},
+		{
+			"type": "toggle",
+			"text": "§6Private graves: §reveryone can only open their own grave",
+			"name": "grave:privateGraves",
+			"default": false
+		},
+		{
+			"type": "toggle",
+			"text": "§6Ignore players with OP: §rPlayers with OP permissions can open private graves, despite the settings",
+			"name": "grave:ignoreOPplayers",
+			"default": true
+		},
+		{
+			"type": "toggle",
+			"text": "§6Chat feedback: §rstate which items and levels have been lost",
+			"name": "grave:chatFeedback",
+			"default": true
+		},
+		{
+			"type": "label",
+			"text": "§l§aSliders"
+		},
+		{
+			"type": "slider",
+			"text": "§6Item loot: §rsetting for what percentage of items are placed in the grave\n§ipercent",
+			"name": "grave:lostItems",
+			"min": 1,
+			"max": 100,
+			"step": 1,
+			"default": 100
+		},
+		{
+			"type": "slider",
+			"text": "§6XP loot: §rsetting for what percentage of the level should be saved in the grave\n§ipercent",
+			"name": "grave:lostLevels",
+			"min": 1,
+			"max": 100,
+			"step": 1,
+			"default": 100
 		}
 	],
 	"metadata": {
